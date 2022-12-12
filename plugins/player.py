@@ -472,13 +472,13 @@ async def stream(client, m: Message):
 
 
 admincmds=["yplay", "sleave", "spause", "sresume", "sskip", "srestart", "svolume", "sshuffle", "clearplaylist", "sxport", "simport", "supdate", 'sreplay', 'slogs', 'sstream', 'fplay', 'sschedule', 'record', 'slist', 'cancel', 'cancelall', 'vcpromote', 'vcdemote', 'refresh', 'rtitle', 'seek', 'svcmute', 'sunmute',
-f'sstream@{Config.BOT_USERNAME}', f'slogs@{Config.BOT_USERNAME}', f"sreplay@{Config.BOT_USERNAME}", f"yplay@{Config.BOT_USERNAME}", f"sleave@{Config.BOT_USERNAME}", f"spause@{Config.BOT_USERNAME}", f"sresume@{Config.BOT_USERNAME}", f"sskip@{Config.BOT_USERNAME}", 
-f"srestart@{Config.BOT_USERNAME}", f"svolume@{Config.BOT_USERNAME}", f"sshuffle@{Config.BOT_USERNAME}", f"clearplaylist@{Config.BOT_USERNAME}", f"sxport@{Config.BOT_USERNAME}", f"simport@{Config.BOT_USERNAME}", f"supdate@{Config.BOT_USERNAME}",
-f'splay@{Config.BOT_USERNAME}', f'sschedule@{Config.BOT_USERNAME}', f'record@{Config.BOT_USERNAME}', f'slist@{Config.BOT_USERNAME}', f'cancel@{Config.BOT_USERNAME}', f'cancelall@{Config.BOT_USERNAME}', f'vcpromote@{Config.BOT_USERNAME}', 
-f'vcdemote@{Config.BOT_USERNAME}', f'refresh@{Config.BOT_USERNAME}', f'rtitle@{Config.BOT_USERNAME}', f'seek@{Config.BOT_USERNAME}', f'smute@{Config.BOT_USERNAME}', f'svcunmute@{Config.BOT_USERNAME}'
+f'stream@{Config.BOT_USERNAME}', f'logs@{Config.BOT_USERNAME}', f"replay@{Config.BOT_USERNAME}", f"yplay@{Config.BOT_USERNAME}", f"leave@{Config.BOT_USERNAME}", f"pause@{Config.BOT_USERNAME}", f"resume@{Config.BOT_USERNAME}", f"skip@{Config.BOT_USERNAME}", 
+f"restart@{Config.BOT_USERNAME}", f"volume@{Config.BOT_USERNAME}", f"shuffle@{Config.BOT_USERNAME}", f"clearplaylist@{Config.BOT_USERNAME}", f"export@{Config.BOT_USERNAME}", f"import@{Config.BOT_USERNAME}", f"update@{Config.BOT_USERNAME}",
+f'play@{Config.BOT_USERNAME}', f'schedule@{Config.BOT_USERNAME}', f'record@{Config.BOT_USERNAME}', f'list@{Config.BOT_USERNAME}', f'cancel@{Config.BOT_USERNAME}', f'cancelall@{Config.BOT_USERNAME}', f'vcpromote@{Config.BOT_USERNAME}', 
+f'vcdemote@{Config.BOT_USERNAME}', f'refresh@{Config.BOT_USERNAME}', f'rtitle@{Config.BOT_USERNAME}', f'seek@{Config.BOT_USERNAME}', f'mute@{Config.BOT_USERNAME}', f'vcunmute@{Config.BOT_USERNAME}'
 ]
 
-allcmd = ["play", "player", f"play@{Config.BOT_USERNAME}", f"player@{Config.BOT_USERNAME}"] + admincmds
+allcmd = ["splay", "splayer", f"play@{Config.BOT_USERNAME}", f"player@{Config.BOT_USERNAME}"] + admincmds
 
 @Client.on_message(filters.command(admincmds) & ~admin_filter & chat_filter)
 async def notforu(_, m: Message):
@@ -501,7 +501,7 @@ async def not_chat(_, m: Message):
     else:
         buttons = [
             [
-                InlineKeyboardButton('⚡️Make Own Bot', url='https://t.me/Music_Forever_X'),
+                InlineKeyboardButton('⚡️JOIN', url='https://t.me/Music_Forever_X'),
             ]
             ]
         await m.reply("<b>You can't use this bot in this group</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
