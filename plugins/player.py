@@ -65,7 +65,7 @@ from pyrogram import (
 
 admin_filter=filters.create(is_admin) 
 
-@Client.on_message(filters.command(["play", "fplay", f"play@{Config.BOT_USERNAME}", f"fplay@{Config.BOT_USERNAME}"]) & chat_filter)
+@Client.on_message(filters.command(["splay","fplay", f"play@{Config.BOT_USERNAME}", f"fplay@{Config.BOT_USERNAME}"]) & chat_filter)
 async def add_to_playlist(_, message: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
         admins = await get_admins(Config.CHAT)
@@ -83,13 +83,13 @@ async def add_to_playlist(_, message: Message):
                 k=await message.reply("This command is only for admins.")
                 await delete_messages([message, k])
                 return
-        msg = await message.reply_text("⚡️ **Checking recived input..**")
+        msg = await message.reply_text("⚡️ **ටිකක් ඉම්න.....**")
         if message.reply_to_message and message.reply_to_message.video:
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **Checking Telegram Media...\nටිකක් ඉම්න...**")
             type='video'
             m_video = message.reply_to_message.video       
         elif message.reply_to_message and message.reply_to_message.document:
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **Checking Telegram Media...\nටිකක් ඉම්න...**")
             m_video = message.reply_to_message.document
             type='video'
             if not "video" in m_video.mime_type:
@@ -97,7 +97,7 @@ async def add_to_playlist(_, message: Message):
         elif message.reply_to_message and message.reply_to_message.audio:
             #if not Config.IS_VIDEO:
                 #return await message.reply("Play from audio file is available only if Video Mode if turned off.\nUse /settings to configure ypur player.")
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **Checking Telegram Media...\n\nටිකක් ඉම්න...**")
             type='audio'
             m_video = message.reply_to_message.audio       
         else:
@@ -186,11 +186,11 @@ async def add_to_playlist(_, message: Message):
             await msg.edit("Media added to playlist")
         elif type in ["youtube", "query", "ytdl_s"]:
             if type=="youtube":
-                await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                await msg.edit("⚡️ **youtube එකේ සින්දුව හොයනෝ...**")
                 url=yturl
             elif type=="query":
                 try:
-                    await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                    await msg.edit("⚡️ **youtube එකේ සින්දුව හොයනෝ...**")
                     ytquery=ysearch
                     results = YoutubeSearch(ytquery, max_results=1).to_dict()
                     url = f"https://youtube.com{results[0]['url_suffix']}"
@@ -279,7 +279,7 @@ async def add_to_playlist(_, message: Message):
             await download(track)
 
 
-@Client.on_message(filters.command(["leave", f"leave@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
+@Client.on_message(filters.command(["sleave", f"leave@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def leave_voice_chat(_, m: Message):
     if not Config.CALL_STATUS:        
         k=await m.reply("Not joined any voicechat.")
@@ -291,7 +291,7 @@ async def leave_voice_chat(_, m: Message):
 
 
 
-@Client.on_message(filters.command(["shuffle", f"shuffle@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
+@Client.on_message(filters.command(["sshuffle", f"shuffle@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def shuffle_play_list(client, m: Message):
     if not Config.CALL_STATUS:
         k = await m.reply("Not joined any voicechat.")
@@ -355,7 +355,7 @@ async def channel_play_list(client, m: Message):
                     await k.edit(f"Something went wrong- {e}")
                     await delete_messages([m, k])
                     return
-                await k.edit("Searching files from channel, this may take some time, depending on number of files in the channel.")
+                await k.edit("චැනල් එකේ songs හොයනෝ....")
                 st, msg = await c_play(me)
                 if st == False:
                     await m.edit(msg)
@@ -370,7 +370,7 @@ async def channel_play_list(client, m: Message):
                     await k.edit(f"Errors occured while getting data about channel - {e}")
                     await delete_messages([m, k])
                     return
-                await k.edit("Searching files from channel, this may take some time, depending on number of files in the channel.")
+                await k.edit("චැනල් එකේ songs හොයනෝ.....")
                 st, msg=await c_play(me)
                 if st == False:
                     await k.edit(msg)
@@ -419,7 +419,7 @@ async def yt_play_list(client, m: Message):
             await delete_messages([m, k])
 
 
-@Client.on_message(filters.command(["stream", f"stream@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
+@Client.on_message(filters.command(["sstream", f"stream@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def stream(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
         msg=await m.reply("Checking the recived input.")
@@ -471,18 +471,18 @@ async def stream(client, m: Message):
         
 
 
-admincmds=["yplay", "leave", "pause", "resume", "skip", "restart", "volume", "shuffle", "clearplaylist", "export", "import", "update", 'replay', 'logs', 'stream', 'fplay', 'schedule', 'record', 'slist', 'cancel', 'cancelall', 'vcpromote', 'vcdemote', 'refresh', 'rtitle', 'seek', 'vcmute', 'unmute',
-f'stream@{Config.BOT_USERNAME}', f'logs@{Config.BOT_USERNAME}', f"replay@{Config.BOT_USERNAME}", f"yplay@{Config.BOT_USERNAME}", f"leave@{Config.BOT_USERNAME}", f"pause@{Config.BOT_USERNAME}", f"resume@{Config.BOT_USERNAME}", f"skip@{Config.BOT_USERNAME}", 
-f"restart@{Config.BOT_USERNAME}", f"volume@{Config.BOT_USERNAME}", f"shuffle@{Config.BOT_USERNAME}", f"clearplaylist@{Config.BOT_USERNAME}", f"export@{Config.BOT_USERNAME}", f"import@{Config.BOT_USERNAME}", f"update@{Config.BOT_USERNAME}",
-f'play@{Config.BOT_USERNAME}', f'schedule@{Config.BOT_USERNAME}', f'record@{Config.BOT_USERNAME}', f'slist@{Config.BOT_USERNAME}', f'cancel@{Config.BOT_USERNAME}', f'cancelall@{Config.BOT_USERNAME}', f'vcpromote@{Config.BOT_USERNAME}', 
-f'vcdemote@{Config.BOT_USERNAME}', f'refresh@{Config.BOT_USERNAME}', f'rtitle@{Config.BOT_USERNAME}', f'seek@{Config.BOT_USERNAME}', f'mute@{Config.BOT_USERNAME}', f'vcunmute@{Config.BOT_USERNAME}'
+admincmds=["yplay", "sleave", "spause", "sresume", "sskip", "srestart", "svolume", "sshuffle", "clearplaylist", "sxport", "simport", "supdate", 'sreplay', 'slogs', 'sstream', 'fplay', 'sschedule', 'record', 'slist', 'cancel', 'cancelall', 'vcpromote', 'vcdemote', 'refresh', 'rtitle', 'seek', 'svcmute', 'sunmute',
+f'sstream@{Config.BOT_USERNAME}', f'slogs@{Config.BOT_USERNAME}', f"sreplay@{Config.BOT_USERNAME}", f"yplay@{Config.BOT_USERNAME}", f"sleave@{Config.BOT_USERNAME}", f"spause@{Config.BOT_USERNAME}", f"sresume@{Config.BOT_USERNAME}", f"sskip@{Config.BOT_USERNAME}", 
+f"srestart@{Config.BOT_USERNAME}", f"svolume@{Config.BOT_USERNAME}", f"sshuffle@{Config.BOT_USERNAME}", f"clearplaylist@{Config.BOT_USERNAME}", f"sxport@{Config.BOT_USERNAME}", f"simport@{Config.BOT_USERNAME}", f"supdate@{Config.BOT_USERNAME}",
+f'splay@{Config.BOT_USERNAME}', f'sschedule@{Config.BOT_USERNAME}', f'record@{Config.BOT_USERNAME}', f'slist@{Config.BOT_USERNAME}', f'cancel@{Config.BOT_USERNAME}', f'cancelall@{Config.BOT_USERNAME}', f'vcpromote@{Config.BOT_USERNAME}', 
+f'vcdemote@{Config.BOT_USERNAME}', f'refresh@{Config.BOT_USERNAME}', f'rtitle@{Config.BOT_USERNAME}', f'seek@{Config.BOT_USERNAME}', f'smute@{Config.BOT_USERNAME}', f'svcunmute@{Config.BOT_USERNAME}'
 ]
 
 allcmd = ["play", "player", f"play@{Config.BOT_USERNAME}", f"player@{Config.BOT_USERNAME}"] + admincmds
 
 @Client.on_message(filters.command(admincmds) & ~admin_filter & chat_filter)
 async def notforu(_, m: Message):
-    k = await _.send_cached_media(chat_id=m.chat.id, file_id="CAADBQADEgQAAtMJyFVJOe6-VqYVzAI", caption="You Are Not Authorized", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('⚡️Join Here', url='https://t.me/subin_works')]]))
+    k = await _.send_cached_media(chat_id=m.chat.id, file_id="CAADBQADEgQAAtMJyFVJOe6-VqYVzAI", caption="You Are Not Authorized", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('⚡️Join Here', url='https://t.me/Music_Forever_X')]]))
     await delete_messages([m, k])
 
 @Client.on_message(filters.command(allcmd) & ~chat_filter & filters.group)
@@ -501,9 +501,8 @@ async def not_chat(_, m: Message):
     else:
         buttons = [
             [
-                InlineKeyboardButton('⚡️Make Own Bot', url='https://github.com/subinps/VCPlayerBot'),
-                InlineKeyboardButton('🧩 Join Here', url='https://t.me/subin_works'),
+                InlineKeyboardButton('⚡️Make Own Bot', url='https://t.me/Music_Forever_X'),
             ]
             ]
-        await m.reply("<b>You can't use this bot in this group, for that you have to make your own bot from the [SOURCE CODE](https://github.com/subinps/VCPlayerBot) below.</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
+        await m.reply("<b>You can't use this bot in this group</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
 
