@@ -63,7 +63,7 @@ async def schedule_vc(bot, message):
         type=""
         yturl=""
         ysearch=""
-        msg = await message.reply_text("⚡️ **Checking recived input..**")
+        msg = await message.reply_text("⚡️ **ටිකක් ඉම්න..........**")
         if message.reply_to_message and message.reply_to_message.video:
             await msg.edit("⚡️ **Checking Telegram Media...**")
             type='video'
@@ -148,11 +148,11 @@ async def schedule_vc(bot, message):
             await sync_to_db()
         elif type in ["youtube", "query", "ytdl_s"]:
             if type=="youtube":
-                await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                await msg.edit("⚡️ **youtube එකේ සින්දුව හොයනෝ....**")
                 url=yturl
             elif type=="query":
                 try:
-                    await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                    await msg.edit("⚡️ **youtube එකේ සින්දුව හොයනෝ.....**")
                     ytquery=ysearch
                     results = YoutubeSearch(ytquery, max_results=1).to_dict()
                     url = f"https://youtube.com{results[0]['url_suffix']}"
