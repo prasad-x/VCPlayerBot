@@ -133,7 +133,7 @@ async def set_heroku_var(client, message):
                     await db.edit_config("RESTART", msg)
             config[var] = str(value)
 
-@debug.on_message(filters.command(["restart", f"restart@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
+@debug.on_message(filters.command(["srestart", f"restart@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def update(bot, message):
     m=await message.reply("Restarting with new changes..")
     if Config.DATABASE_URI:
@@ -187,7 +187,7 @@ async def skip_track(_, m: Message):
     await msg.edit(pl, disable_web_page_preview=True)
 
 
-@debug.on_message(filters.command(['logs', f"logs@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
+@debug.on_message(filters.command(['slogs', f"logs@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def get_logs(client, message):
     m=await message.reply("Checking logs..")
     if os.path.exists("botlog.txt"):
